@@ -57,12 +57,13 @@ function validateForm() {
   //boucle validate
   allchoice.forEach((choice) => {
     if (!choice.checkValidity()) {
+
     //allchoice.classList.add('invalid');
     //error[0].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer 2 caractères ou plus pour le champ du prénom.</span>";
     return false;
     }
     else {
-      return true;
+    return true;
     }
   });
 
@@ -97,7 +98,7 @@ else {
   error[6].innerHTML = "";
   return true;
 }
-
+return true
 }
 
 
@@ -110,7 +111,10 @@ else {
   var email = document.forms["reserve"]["email"];
   var birthdate = document.forms["reserve"]["birthdate"];
   var quantity = document.forms["reserve"]["quantity"];
-  
+  var localisation = document.querySelectorAll('input[name="location"]');
+  var error = document.querySelectorAll('span[id="error"]');
+  var localisation_check = "";
+  var checkbox1 = document.forms["reserve"]["checkbox1"]
   
   
   var error = document.querySelectorAll('span[id="error"]');
@@ -178,7 +182,15 @@ else {
     error[5].innerHTML = ""
   }
   
-
+  // condition checked
+  if (checkbox1.check == )  {
+  error[6].innerHTML = "<span style='color: red;'>"+ "Veuillez accepter les conditions d'utilisations </span>";
+  return false;
+  }
+  else {
+    error[6].innerHTML = "";
+    return true;
+  }
  
   return true;
 */
