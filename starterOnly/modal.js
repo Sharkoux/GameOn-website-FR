@@ -42,45 +42,86 @@ return regexExp.test(date);
 function validateForm() {
   
   //call variable
-  var first = document.forms["reserve"]["first"].value;
-  var last = document.forms["reserve"]["last"].value;
-  var email = document.forms["reserve"]["email"].value;
-  var birthdate = (document.forms["reserve"]["birthdate"].value).split('-').reverse().join('-');
-  var quantity = document.forms["reserve"]["quantity"].value;
+  var first = document.forms["reserve"]["first"];
+  var last = document.forms["reserve"]["last"];
+  var email = document.forms["reserve"]["email"];
+  var birthdate = document.forms["reserve"]["birthdate"];
+  var quantity = document.forms["reserve"]["quantity"];
+  var checkbox1 = document.forms["reserve"]["checkbox1"];
   var localisation = document.querySelectorAll('input[name="location"]');
-  
+  var localisation_check = " ";
+  var error = document.querySelectorAll('span[id="error"]');
+  error.innerHTML = "";
 
-  if (first.length < 2) {
+  // first length 
+  if (first.value.length < 2) {
+    first.classList.add('invalid');
+    error[0].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer 2 caractères ou plus pour le champ du prénom.</span>";
     return false;
   }
-
-  if (last.length < 2 ) {
+  else {
+    error[0].innerHTML = "";
+  }
+  // last length
+  if (last.value.length < 2 ) {
+    last.classList.add('invalid');
+    error[1].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer 2 caractères ou plus pour le champ du nom.</span>";
     return false;
+  } else {
+    error.innerHTML = "";
+  }
+  // email valid
+  if (checkEmail(email.value) == false ) {
+    email.classList.add('invalid');
+    error[2].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer une adresse mail valide.</span>";
+    return false;
+  } else {
+    error[2].innerHTML = "";
+  }
+  // date valid
+  if (verifdate(birthdate.value.split('-').reverse().join('-')) == false) {
+    birthdate.classList.add('invalid');
+    error[3].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer une date valide.</span>";
+    return false;
+  } else {
+    error[3].innerHTML = "";
+  }
+  // quantity is number
+  if (isNaN(quantity.value) == true) {
+    quantity.classList.add('invalid');
+    error[4].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer un nombre entier</span>";
+    return false;
+  } else {
+    error[4].innerHTML = "";
   }
 
-  if (checkEmail(email) == false ) {
-    return false;
-  }
-
-  if (verifdate(birthdate) == false) {
-    return false;
-  }
-
-  if (isNaN(quantity) == true) {
-    return false;
-  }
-
-
+  //localisation checked
   for (var i = 0; i < localisation.length; i++) {
     if (localisation[i].checked == true) {
-      console.log(localisation[i], "is checked");
-      break;
+    var localisation_check = localisation[i];
+    break;
+      
     }
-    
+    else {
+      console.log("error")
+    }
   }
   
-  
-
+  if (localisation_check == ' ') {
+    error[5].innerHTML = "<span style='color: red;'>"+ "Veuillez choisir une localisation</span>";
+    return false;
+  }
+  else {
+    error[5].innerHTML = ""
+  }
+  // condition checked
+  if (checkbox1.checked == false) {
+    error[6].innerHTML = "<span style='color: red;'>"+ "Veuillez accepter les conditions d'utilisations </span>";
+    return false
+  }
+  else {
+    error[6].innerHTML = "";
+  }
 
  
   return true;
