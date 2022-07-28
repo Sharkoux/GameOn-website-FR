@@ -12,22 +12,30 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalclose = document.querySelector(".close");
-const submit = document.querySelector(".btn-submit")
+const submit = document.querySelector('form');
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 modalclose.addEventListener("click", exitModal);
+submit.addEventListener("submit", (e) => {
+  e.preventDefault();
+  validateForm();
+});
+
+
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  
 }
 
 //exit modal event 
 function exitModal() {
   modalbg.style.display = "none";
+  location.reload();
 }
 
-/*
+
 //function check mail
 function checkEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -40,126 +48,65 @@ const regexExp = /(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(
 return regexExp.test(date);
 }
 
-*/
-
-//fontion validate form 
 function validateForm() {
-  
-  //call variable choice
-  var allchoice = document.querySelectorAll('input[required]');
-  var localisation = document.querySelectorAll('input[name="location"]');
-  var error = document.querySelectorAll('span[id="error"]');
-  var localisation_check = "";
-  var checkbox1 = document.querySelector('#checkbox1');
-  
 
-  error.innerHTML = "";
-  //boucle validate
-  allchoice.forEach((choice) => {
-    if (!choice.checkValidity()) {
-
-    //allchoice.classList.add('invalid');
-    //error[0].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer 2 caractères ou plus pour le champ du prénom.</span>";
-    return false;
-    }
-    else {
-    return true;
-    }
-  });
-
-
-//localisation checked
-for (var i = 0; i < localisation.length; i++) {
-  if (localisation[i].checked == true) {
-  var localisation_check = localisation[i];
-  break;
-  }
-  else {
-    console.log("error");
-  }
-};
-
-if (localisation_check == "") {
-  error[5].innerHTML = "<span style='color: red;'>"+ "Veuillez choisir une localisation</span>";
-  return false;
-}
-else {
-  error[5].innerHTML = "";
-  return true;
-}
-
-
-// condition checked
-if (!checkbox1.checkValidity())  {
-  error[6].innerHTML = "<span style='color: red;'>"+ "Veuillez accepter les conditions d'utilisations </span>";
-  return false;
-}
-else {
-  error[6].innerHTML = "";
-  return true;
-}
-return true
-}
-
-
-
-
-  /*
+ 
   //call variable
-  var first = document.forms["reserve"]["first"];
-  var last = document.forms["reserve"]["last"];
-  var email = document.forms["reserve"]["email"];
-  var birthdate = document.forms["reserve"]["birthdate"];
-  var quantity = document.forms["reserve"]["quantity"];
+  var first = document.getElementById("first");
+  var last = document.getElementById("last");
+  var email = document.getElementById("email");
+  var birthdate = document.getElementById("birthdate");
+  var quantity = document.getElementById("quantity");
   var localisation = document.querySelectorAll('input[name="location"]');
+  var checkbox1 = document.getElementById("checkbox1");
+ 
+  
   var error = document.querySelectorAll('span[id="error"]');
+  var confirmation = document.getElementsByClassName("formData");
+  var btn_close = document.getElementsByClassName("btn-submit");
+  var text_label = document.getElementsByClassName("text-label");
   var localisation_check = "";
-  var checkbox1 = document.forms["reserve"]["checkbox1"]
+  var valid = true;
+
+
+  //boucle for reset msg error
+  for (var o = 0; o < error.length; o++) {
+    error[o].innerHTML= "";
+  }
   
-  
-  var error = document.querySelectorAll('span[id="error"]');
-  error.innerHTML = "";
 
   // first length 
   if (first.value.length < 2) {
     first.classList.add('invalid');
     error[0].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer 2 caractères ou plus pour le champ du prénom.</span>";
-    return false;
+    valid = false;
   }
-  else {
-    error[0].innerHTML = "";
-  }
+  
+
   // last length
   if (last.value.length < 2 ) {
     last.classList.add('invalid');
     error[1].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer 2 caractères ou plus pour le champ du nom.</span>";
-    return false;
-  } else {
-    error[1].innerHTML = "";
+    valid = false;
   }
   // email valid
   if (checkEmail(email.value) == false ) {
     email.classList.add('invalid');
     error[2].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer une adresse mail valide.</span>";
-    return false;
-  } else {
-    error[2].innerHTML = "";
+    valid =  false;
   }
   // date valid
   if (verifdate(birthdate.value.split('-').reverse().join('-')) == false) {
     birthdate.classList.add('invalid');
     error[3].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer une date valide.</span>";
-    return false;
-  } else {
-    error[3].innerHTML = "";
+    valid = false;
   }
+
   // quantity is number
-  if (isNaN(quantity.value) == true) {
+  if (quantity.value == '' || isNaN(quantity.value) == true) {
     quantity.classList.add('invalid');
     error[4].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer un nombre entier</span>";
-    return false;
-  } else {
-    error[4].innerHTML = "";
+    valid = false;
   }
 
   //localisation checked
@@ -174,24 +121,37 @@ return true
     }
   }
   
-  if (localisation_check == ' ') {
+  if (localisation_check == '') {
     error[5].innerHTML = "<span style='color: red;'>"+ "Veuillez choisir une localisation</span>";
-    return false;
-  }
-  else {
-    error[5].innerHTML = ""
+    valid = false;
   }
   
+  
   // condition checked
-  if (checkbox1.check == )  {
+  if (checkbox1.checked == false )  {
   error[6].innerHTML = "<span style='color: red;'>"+ "Veuillez accepter les conditions d'utilisations </span>";
+  valid = false;
+  }
+  // if form no valid 
+ if (valid == false) {
   return false;
+ } 
+ //if form valid 
+ if (valid == true) {
+  //boucle reset modal information
+  for (var p = 0; p < confirmation.length; p++) {
+   confirmation[p].style.opacity = 0;
+   
   }
-  else {
-    error[6].innerHTML = "";
-    return true;
-  }
- 
-  return true;
-*/
-//}
+    // modification button
+    btn_close[0].value = "Fermer";
+    btn_close[0].addEventListener("click", exitModal);
+
+    //modification text_label 
+    text_label[0].style.position = "relative";
+    text_label[0].style.bottom = "200px";
+    text_label[0].innerHTML = "Merci pour votre inscription";
+    text_label[0].style.fontSize = "x-large";
+    text_label[0].style.left = "50px";
+ }
+}
