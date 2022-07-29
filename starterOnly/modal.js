@@ -7,12 +7,26 @@ function editNav() {
   }
 }
 
+//call variable
+var localisation = document.querySelectorAll('input[name="location"]');
+var checkbox1 = document.getElementById("checkbox1");
+var text_control = document.querySelectorAll('.text-control');
+
+var error = document.querySelectorAll('span[id="error"]');
+var confirmation = document.getElementsByClassName("formData");
+var btn_close = document.getElementsByClassName("btn-submit");
+var text_label = document.getElementsByClassName("text-label");
+
+var valid = " ";
+
+
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalclose = document.querySelector(".close");
 const submit = document.querySelector('form');
+const allinput = document.querySelectorAll('input');
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -20,7 +34,16 @@ modalclose.addEventListener("click", exitModal);
 submit.addEventListener("submit", (e) => {
   e.preventDefault();
   validateForm();
+  submitform();
 });
+
+
+// boucle activate validate auto
+for (var s = 0; s < allinput.length; s++){
+allinput[s].addEventListener('change', function() {
+  validateForm();
+});
+}
 
 
 // launch modal form
@@ -48,32 +71,23 @@ const regexExp = /(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(
 return regexExp.test(date);
 }
 
+
+//function validate form 
+
 function validateForm() {
-
- 
-  //call variable
-  var first = document.getElementById("first");
-  var last = document.getElementById("last");
-  var email = document.getElementById("email");
-  var birthdate = document.getElementById("birthdate");
-  var quantity = document.getElementById("quantity");
-  var localisation = document.querySelectorAll('input[name="location"]');
-  var checkbox1 = document.getElementById("checkbox1");
- 
-  
-  var error = document.querySelectorAll('span[id="error"]');
-  var confirmation = document.getElementsByClassName("formData");
-  var btn_close = document.getElementsByClassName("btn-submit");
-  var text_label = document.getElementsByClassName("text-label");
   var localisation_check = "";
-  var valid = true;
-
+  valid = true;
+  
 
   //boucle for reset msg error
   for (var o = 0; o < error.length; o++) {
     error[o].innerHTML= "";
   }
   
+  //boucle for reset border error
+  for (var q = 0; q < text_control.length; q++) {
+    text_control[q].classList.remove('invalid');
+  }
 
   // first length 
   if (first.value.length < 2) {
@@ -116,9 +130,6 @@ function validateForm() {
     break;
       
     }
-    else {
-      console.log("error")
-    }
   }
   
   if (localisation_check == '') {
@@ -136,22 +147,32 @@ function validateForm() {
  if (valid == false) {
   return false;
  } 
- //if form valid 
- if (valid == true) {
-  //boucle reset modal information
-  for (var p = 0; p < confirmation.length; p++) {
-   confirmation[p].style.opacity = 0;
-   
-  }
-    // modification button
-    btn_close[0].value = "Fermer";
-    btn_close[0].addEventListener("click", exitModal);
-
-    //modification text_label 
-    text_label[0].style.position = "relative";
-    text_label[0].style.bottom = "200px";
-    text_label[0].innerHTML = "Merci pour votre inscription";
-    text_label[0].style.fontSize = "x-large";
-    text_label[0].style.left = "50px";
- }
+ 
 }
+
+//function submit, add thanks 
+
+function submitform() {
+  //if form valid 
+  if (valid == true) {
+  
+  
+    //boucle reset modal information
+    for (var p = 0; p < confirmation.length; p++) {
+     confirmation[p].style.display = "none";
+     
+    }
+      // modification button
+      btn_close[0].value = "Fermer";
+      btn_close[0].addEventListener("click", exitModal);
+  
+      //modification text_label 
+      text_label[0].innerHTML = "Merci pour votre inscription";
+      text_label[0].style.fontSize = "x-large";
+      text_label[0].style.margin = "250px 50px";
+      text_label[0].style.textAlign = "center";
+
+   }
+   
+
+  }
