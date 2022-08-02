@@ -12,7 +12,7 @@ var localisation = document.querySelectorAll('input[name="location"]');
 var checkbox1 = document.getElementById("checkbox1");
 var text_control = document.querySelectorAll('.text-control');
 
-var error = document.querySelectorAll('span[id="error"]');
+var error = document.querySelectorAll('span[class="error"]');
 var confirmation = document.getElementsByClassName("formData");
 var btn_close = document.getElementsByClassName("btn-submit");
 var text_label = document.getElementsByClassName("text-label");
@@ -39,11 +39,9 @@ submit.addEventListener("submit", (e) => {
 
 
 // boucle activate validate auto
-for (var s = 0; s < allinput.length; s++){
-allinput[s].addEventListener('change', function() {
-  validateForm();
-});
-}
+allinput.forEach((input) => input.addEventListener('change', validateForm));
+
+
 
 
 // launch modal form
@@ -110,14 +108,14 @@ function validateForm() {
     valid =  false;
   }
   // date valid
-  if (verifdate(birthdate.value.split('-').reverse().join('-')) == false) {
+  if (verifdate(birthdate.value.split('-').reverse().join('-')) == false || birthdate.value.split("-")[0] < 1920  || birthdate.value.split("-")[0] > 2004) {
     birthdate.classList.add('invalid');
     error[3].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer une date valide.</span>";
     valid = false;
   }
 
   // quantity is number
-  if (quantity.value == '' || isNaN(quantity.value) == true) {
+  if (quantity.value == '' || isNaN(quantity.value) == true || quantity.value > 99 || quantity.value < 0) {
     quantity.classList.add('invalid');
     error[4].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer un nombre entier</span>";
     valid = false;
