@@ -19,14 +19,14 @@ const modalclose = document.querySelector(".close");
 const submit = document.querySelector('form');
 const allinput = document.querySelectorAll('input');
 
-var localisation = document.querySelectorAll('input[name="location"]');
-var checkbox1 = document.getElementById("checkbox1");
-var text_control = document.querySelectorAll('.text-control');
+const localisation = document.querySelectorAll('input[name="location"]');
+const checkbox1 = document.getElementById("checkbox1");
+const text_control = document.querySelectorAll('.text-control');
 
-var error = document.querySelectorAll('span[class="error"]');
-var confirmation = document.getElementsByClassName("formData");
-var btn_close = document.getElementsByClassName("btn-submit");
-var text_label = document.getElementsByClassName("text-label");
+const error = document.querySelectorAll('span[class="error"]');
+const confirmation = document.getElementsByClassName("formData");
+const btn_close = document.getElementsByClassName("btn-submit");
+const text_label = document.getElementsByClassName("text-label");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
