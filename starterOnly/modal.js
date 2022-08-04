@@ -7,7 +7,7 @@ function editNav() {
   }
 }
 
-//call variable
+// call variable
 var valid = " ";
 
 
@@ -18,6 +18,7 @@ const formData = document.querySelectorAll(".formData");
 const modalclose = document.querySelector(".close");
 const submit = document.querySelector('form');
 const allinput = document.querySelectorAll('input');
+
 var localisation = document.querySelectorAll('input[name="location"]');
 var checkbox1 = document.getElementById("checkbox1");
 var text_control = document.querySelectorAll('.text-control');
