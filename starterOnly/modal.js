@@ -64,8 +64,8 @@ function checkEmail(email) {
 
 //function verif date 
 function verifdate(date){
-const regexExp = /(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})/gi;
-return regexExp.test(date);
+  const regexExp = /(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})/gi;
+  return regexExp.test(date);
 }
 
 
@@ -100,12 +100,16 @@ function validateForm() {
     error[1].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer 2 caractères ou plus pour le champ du nom.</span>";
     valid = false;
   }
+
+
   // email valid
   if (checkEmail(email.value) == false ) {
     email.classList.add('invalid');
     error[2].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer une adresse mail valide.</span>";
     valid =  false;
   }
+
+
   // date valid
   if (verifdate(birthdate.value.split('-').reverse().join('-')) == false || birthdate.value.split("-")[0] < 1920  || birthdate.value.split("-")[0] > 2004) {
     birthdate.classList.add('invalid');
@@ -113,12 +117,14 @@ function validateForm() {
     valid = false;
   }
 
+
   // quantity is number
   if (quantity.value == '' || isNaN(quantity.value) == true || quantity.value > 99 || quantity.value < 0) {
     quantity.classList.add('invalid');
     error[4].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer un nombre entier</span>";
     valid = false;
   }
+
 
   //localisation checked
   for (var i = 0; i < localisation.length; i++) {
@@ -129,6 +135,7 @@ function validateForm() {
     }
   }
   
+
   if (localisation_check == '') {
     error[5].innerHTML = "<span style='color: red;'>"+ "Veuillez choisir une localisation</span>";
     valid = false;
@@ -140,12 +147,16 @@ function validateForm() {
   error[6].innerHTML = "<span style='color: red;'>"+ "Veuillez accepter les conditions d'utilisations </span>";
   valid = false;
   }
+
+
+
   // if form no valid 
  if (valid == false) {
   return false;
  } 
  
 }
+
 
 //function submit, add thanks 
 
@@ -156,7 +167,7 @@ function submitform() {
   
     //boucle reset modal information
     for (var p = 0; p < confirmation.length; p++) {
-     confirmation[p].style.display = "none";
+        confirmation[p].style.display = "none";
      
     }
       // modification button
