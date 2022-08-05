@@ -102,6 +102,9 @@ img {
   }
 }
 
+.error {
+  font-size: 17px;
+}
 
 
  @media screen and (max-width: 540px) {
@@ -109,8 +112,9 @@ img {
     align-items: initial;
     margin-top: 10px;
   }
+  
   .error {
-    font-size: large;
+    font-size: 16px;
   }
 
   .main-navbar {
@@ -198,7 +202,7 @@ main {
 }
 
 .content {
-  margin: 5% auto;
+  margin: 200px auto;
   width: 100%;
   max-width: 500px;
   animation-name: modalopen;
@@ -212,7 +216,7 @@ main {
 }
 
 .modal-body {
-  padding: 15px 8%;
+  padding: 15px 35px;
   margin: 15px auto;
 }
 

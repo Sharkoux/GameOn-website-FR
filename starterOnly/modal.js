@@ -88,7 +88,7 @@ function validateForm() {
   }
 
   // first length 
-  if (first.value.length < 2) {
+  if (first.value.trim().length < 2) {
     first.classList.add('invalid');
     error[0].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer 2 caractères ou plus pour le champ du prénom.</span>";
     valid = false;
@@ -96,7 +96,7 @@ function validateForm() {
   
 
   // last length
-  if (last.value.length < 2 ) {
+  if (last.value.trim().length < 2 ) {
     last.classList.add('invalid');
     error[1].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer 2 caractères ou plus pour le champ du nom.</span>";
     valid = false;
@@ -112,9 +112,17 @@ function validateForm() {
 
 
   // date valid
-  if (verifdate(birthdate.value.split('-').reverse().join('-')) == false || birthdate.value.split("-")[0] < 1920  || birthdate.value.split("-")[0] > 2004) {
+  if (verifdate(birthdate.value.split('-').reverse().join('-')) == false) {
     birthdate.classList.add('invalid');
-    error[3].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer une date valide.</span>";
+    error[3].innerHTML = "<span style='color: red;'>"+ "Veuillez entrer une date valide (jj/mm/aaaa).</span>";
+    valid = false;
+  }
+  if (birthdate.value.split("-")[0] < 1920 && birthdate.value.split("-")[0] != '' ) {
+    error[3].innerHTML = "<span style='color: red;'>"+ "Attention, il semble que vous soyez trop vieux pour cet événement.</span>";
+    valid = false;
+  }
+  if ( birthdate.value.split("-")[0] > 2004 && birthdate.value.split("-")[0] != '' ) {
+    error[3].innerHTML = "<span style='color: red;'>"+ "Attention, il semble que vous soyez trop jeune pour cet événement. </span>";
     valid = false;
   }
 
