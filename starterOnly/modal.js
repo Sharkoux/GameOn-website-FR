@@ -118,10 +118,12 @@ function validateForm() {
     valid = false;
   }
   if (birthdate.value.split("-")[0] < 1920 && birthdate.value.split("-")[0] != '' ) {
+    birthdate.classList.add('invalid');
     error[3].innerHTML = "<span style='color: red;'>"+ "Attention, il semble que vous soyez trop vieux pour cet événement.</span>";
     valid = false;
   }
   if ( birthdate.value.split("-")[0] > 2004 && birthdate.value.split("-")[0] != '' ) {
+    birthdate.classList.add('invalid');
     error[3].innerHTML = "<span style='color: red;'>"+ "Attention, il semble que vous soyez trop jeune pour cet événement. </span>";
     valid = false;
   }
